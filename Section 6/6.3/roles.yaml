@@ -1,0 +1,68 @@
+apiVersion: v1
+items:
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: Role
+  metadata:
+    creationTimestamp: "2020-06-07T11:23:26Z"
+    labels:
+      app.kubernetes.io/name: ingress-nginx
+      app.kubernetes.io/part-of: ingress-nginx
+    name: ingress-role
+    namespace: sample-app
+    resourceVersion: "1004"
+    selfLink: /apis/rbac.authorization.k8s.io/v1/namespaces/ingress-space/roles/ingress-role
+    uid: 5555d6ab-b86e-4a18-8a12-afb20d84fb8a
+  rules:
+  - apiGroups:
+    - ""
+    resources:
+    - configmaps
+    - pods
+    - secrets
+    - namespaces
+    verbs:
+    - get
+  - apiGroups:
+    - ""
+    resourceNames:
+    - ingress-controller-leader-nginx
+    resources:
+    - configmaps
+    verbs:
+    - get
+    - update
+  - apiGroups:
+    - ""
+    resources:
+    - configmaps
+    verbs:
+    - create
+  - apiGroups:
+    - ""
+    resources:
+    - endpoints
+    verbs:
+    - get
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: RoleBinding
+  metadata:
+    creationTimestamp: "2020-06-07T11:23:26Z"
+    labels:
+      app.kubernetes.io/name: ingress-nginx
+      app.kubernetes.io/part-of: ingress-nginx
+    name: ingress-role-binding
+    namespace: sample-app
+    resourceVersion: "1005"
+    selfLink: /apis/rbac.authorization.k8s.io/v1/namespaces/ingress-space/rolebindings/ingress-role-binding
+    uid: dfc7f57e-c871-46e0-8791-86349169f6ca
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: Role
+    name: ingress-role
+  subjects:
+  - kind: ServiceAccount
+    name: my-serviceaccount
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
