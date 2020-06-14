@@ -1,17 +1,18 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: "my-ingress"
+  name: "sampleapp"
+  namespace: "sampleapp"
   annotations:
     kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internet-facing
   labels:
-    app: sample-ingress
+    app: sampleapp
 spec:
   rules:
     - http:
         paths:
           - path: /*
             backend:
-              serviceName: "service-one"
+              serviceName: "sampleapp"
               servicePort: 80
